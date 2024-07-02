@@ -7,8 +7,9 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TaskDao {
+    @Query("SELECT * FROM tasks WHERE id = :taskId")
     fun observeById(taskId: String): Flow<LocalTask>
-
+    @Query("SELECT * FROM tasks")
     fun observeAll(): Flow<List<LocalTask>>
 
 

@@ -3,6 +3,7 @@ package com.example.todoapp.data
 import com.example.todoapp.data.local.LocalTask
 import com.example.todoapp.data.local.TaskDao
 import com.example.todoapp.data.local.TaskDatabase
+import com.example.todoapp.data.local.toTask
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -30,7 +31,23 @@ class MainTaskRepository @Inject constructor(
         return taskId
     }
 
-    override suspend fun getAllTasks(): List<LocalTask>  = withContext(dispatcher){
-        localDataSource.getAll()
+    override suspend fun getAllTasks(): List<Task>  = withContext(dispatcher){
+        localDataSource.getAll().map { it.toTask() }
+    }
+
+    override fun observeAllTasks(): Flow<List<LocalTask>> {
+         return localDataSource.observeAll()
+    }
+
+    override suspend fun updateTask(task: LocalTask) {
+      localDataSource.upsert(task)
+    }
+
+    override suspend fun deleteTask(task: LocalTask) {
+        localDataSource.deleteTaskById(taskId = task.id)
+    }
+
+    override suspend fun deleteAll() {
+        localDataSource.deleteAll()
     }
 }

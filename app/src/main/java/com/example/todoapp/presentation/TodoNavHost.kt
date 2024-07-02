@@ -1,7 +1,6 @@
 package com.example.todoapp.presentation
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -10,21 +9,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.todoapp.presentation.screens.BottomNavigation
-import com.example.todoapp.presentation.screens.HomeScreen
-import com.example.todoapp.presentation.screens.ToDoAppBar
+import com.example.todoapp.presentation.screens.home.BottomNavigation
+import com.example.todoapp.presentation.screens.home.HomeScreen
+import com.example.todoapp.presentation.screens.home.ToDoAppBar
 import com.example.todoapp.presentation.screens.addtask.AddTaskScreen
 import com.example.todoapp.presentation.screens.completed.CompletedScreen
 
@@ -57,7 +52,7 @@ fun TodoNavHost() {
             ) {
             composable(Screens.HOME_SCREEN) {
                 println("cheko89 ${navController.currentDestination?.route}")
-                HomeScreen(modifier = Modifier.padding(innerPadding), navController)
+                HomeScreen(modifier = Modifier.padding(innerPadding))
             }
             composable(Screens.COMPLETED_SCREEN) {
                 CompletedScreen(modifier = Modifier)
@@ -73,7 +68,8 @@ fun TodoNavHost() {
 
 object Screens {
 
-    const val ADDTASK_SCREEN="Add Task"
+    const val ADDTASK_SCREEN = "Add Task"
     const val COMPLETED_SCREEN = "Completed Task"
     const val HOME_SCREEN = "TODO App"
+    const val DETAILS_SCREEN = "Task Details"
 }
